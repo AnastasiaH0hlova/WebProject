@@ -1,17 +1,31 @@
 const uuid = require('uuid')
 const path = require('path')
-const {Dish} = require('../models/models')
+const {Dish, Dish_Info} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 class DishController {
     async create(req,res, next){
         try{
             
-            const {name, typeID, description, weight, calories, cost, dish_info} = req.body
-            const {img} = req.files
+            let {name, typeDishId, description, weight, calories, cost, dish_info} = req.body
+            const {photo} = req.files
             let fileName = uuid.v4()+'.jpg'
-            img.mv(path.resolve(__dirname,'..','static', fileName))
-            const dish = await Dish.create({name, typeID, description, weight, calories, cost, dish_info, img: fileName})
+            photo.mv(path.resolve(__dirname,'..','static', fileName))
+
+            if(dish_info)
+            {
+                dish_info = JSON.parse(dish_info)
+                dish_info.array.forEach(i => Dish_Info.create({
+                    name: i.name,
+                    quantity: i.quantity,
+                    unit: i.unit,
+                    dishId: dish.id
+                    
+                }))
+            }
+
+            
+            const dish = await Dish.create({name, typeDishId, description, weight, calories, cost, photo: fileName})
             return res.json(dish)
         }
         catch(e)
@@ -23,11 +37,32 @@ class DishController {
     }
 
     async getAll(req,res){
+        let  {typeDishId, limit, page} = req.query
+        page = page|| 1
+        limit = limit || 9
+        let offset = (page-1)*limit
+        let dishes;
+        if (typeDishId) dishes = await Dish.findAndCountAll({where:{typeDishId}, limit, offset})        
+        else dishes = await Dish.findAndCountAll({ limit, offset})
+        return res.json(dishes)
         
     }
 
     async getOne(req,res){
-        
+        const {id} = req.params
+        const dish = await Dish.findOne({
+            where: {id},
+            include: [{model:Dish_Info,as: 'dish_info'}]
+        })
+        return res.json(dish) 
+    }
+
+    async deleteOne(req,res){
+        const {id} = req.params
+        const dish = await Dish.findOne({
+            where: {id}
+        })
+        return res.json(dish) 
     }
 
     

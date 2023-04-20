@@ -31,7 +31,6 @@ const Order = sequelize.define('basket',{
 const Dish = sequelize.define('dish',{
     id:{type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type:DataTypes.STRING, unique:true, allowNull:false},
-    type: {type:DataTypes.INTEGER, allowNull:false},
     description: {type:DataTypes.STRING, allowNull:false},
     weight:{type:DataTypes.INTEGER, allowNull:false},
     calories:{type:DataTypes.INTEGER, allowNull:false},
@@ -57,7 +56,7 @@ Basket.belongsTo(User)
 User.hasMany(Order)
 Order.belongsTo(User)
 
-Dish.hasMany(Dish_Info)
+Dish.hasMany(Dish_Info, {as: 'dish_info'})
 Dish_Info.belongsTo(Dish)
 
 Basket.hasMany(Basket_Dish)

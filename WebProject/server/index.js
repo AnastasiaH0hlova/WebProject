@@ -7,11 +7,13 @@ const cors = require('cors')
 const router = require('./routers/index')
 const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 const fileUpLoad = require('express-fileupload')
+const path = require('path')
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(fileUpLoad())
+app.use(express.static(path.resolve(__dirname,'static')))
 app.use('/api', router)
 
 //обработка ошибок, последний middleware
