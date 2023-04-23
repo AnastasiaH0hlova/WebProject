@@ -10,6 +10,6 @@ module.exports= function(req,res,next){
         next()
     } catch(e)
     {
-        res.status(401).json({message:"Не авторизован"})
+        return res.status(401).json({message:"Не авторизован"})
     }
 }

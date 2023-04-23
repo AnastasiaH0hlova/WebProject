@@ -20,7 +20,7 @@ const Basket_Dish = sequelize.define('basket_dish',{
     count:{type:DataTypes.INTEGER}
 })
 
-const Order = sequelize.define('basket',{
+const Order = sequelize.define('order',{
     id:{type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     status:{type:DataTypes.STRING},
     address:{type:DataTypes.STRING},
@@ -65,7 +65,7 @@ Type_Dish.hasMany(Dish)
 Dish.belongsTo(Type_Dish)
 
 Dish.hasMany(Basket_Dish)
-Basket_Dish.belongsTo(Dish)//норм связь?
+Basket_Dish.belongsTo(Dish)
 
 Basket.hasMany(Order)
 Order.belongsTo(Basket) 
