@@ -1,7 +1,9 @@
 import React from 'react';
 import { Button, Card, Col, Container, Form, Image, Row } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 
 const DishPage = () => {
+    const {id} = useParams();
     const dish = { id: 1, name: "margarita", description: "first", weight: 100, calories: 450, cost: 1500, img: "https://mobimg.b-cdn.net/v3/fetch/ef/ef5d5a59c4a4d9d1deb9a3722b744951.jpeg?w=1470&r=0.5625" }
     return (
         < Container className='mt-4' >

@@ -6,7 +6,6 @@ import ListDish from '../components/ListDish';
 const Shop = () => {
     return (
         <Container>
-            SHOP
             <Row className='mt-2'>
                 <Col md={3}>
                     <TypeBar />

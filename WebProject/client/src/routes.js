@@ -32,5 +32,9 @@ export const publicRoutes = [
     {
         path: DISH_ROUTE,
         Component: DishPage
+    }, 
+    {
+        path: DISH_ROUTE + '/:id',
+        Component: DishPage
     }
 ]
