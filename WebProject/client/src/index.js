@@ -4,7 +4,6 @@ import App from './App';
 import UserStore from './store/UserStore';
 import DishStore from './store/DishStore';
 import NavBar from './components/NavBar';
-import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export const Context = createContext(null)
