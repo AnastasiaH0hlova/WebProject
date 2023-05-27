@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export const Context = createContext(null)
+console.log(process.env.REACT_APP_API_URL)
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -14,7 +15,6 @@ root.render(
       user: new UserStore(),
       dish: new DishStore()
     } }>
-      <NavBar />
       <App />
     </Context.Provider>
   </React.StrictMode>

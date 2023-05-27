@@ -8,23 +8,33 @@ import { observer } from 'mobx-react-lite';
 import Container from 'react-bootstrap/Container';
 import 'bootstrap/dist/css/bootstrap.css';
 import { NavLink } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = observer(() => {
     const { user } = useContext(Context)
+    const navigate = useNavigate()
+    const logOut = () => {
+        user.setUser({})
+        user.setIsAuth(false)
+    }
+
     return (
         <Navbar bg="dark" variant="dark">
             <Container>
-                <NavLink style={{color:"white"}} href={SHOP_ROUTE}>Al Halal</NavLink>
+                <NavLink style={{ color: "white" }} onClick={()=>navigate(SHOP_ROUTE)}>Al Halal</NavLink>
                 {user.isAuth ?
                     <Nav className="ms-auto">
-                        <Button variant="outline-light" href={ERROR_ROUTE}>Ошибка</Button>
-                        <Button variant="outline-light" className='ms-2' href={BASKET_ROUTE}>Корзина</Button>
-                        <Button variant="outline-light" className='ms-2' href={ADMIN_ROUTE}>Админ панель</Button>
-                        <Button variant="outline-light" className='ms-2' href={LOGIN_ROUTE}>Выйти</Button>
+                        <Button variant="outline-light" onClick={()=>navigate(ERROR_ROUTE)}>Ошибка</Button>
+                        <Button variant="outline-light" className='ms-2' onClick={()=>navigate(BASKET_ROUTE)}>Корзина</Button>
+                        <Button variant="outline-light" className='ms-2' onClick={()=>navigate(ADMIN_ROUTE)}>Админ панель</Button>
+                        <Button variant="outline-light" className='ms-2' onClick={() => logOut()}>Выйти</Button>
                     </Nav>
                     :
                     <Nav className="ms-auto">
-                        <Button variant="outline-light" href={LOGIN_ROUTE}>Авторизация</Button>
+                        <Button variant="outline-light"
+                            href={LOGIN_ROUTE}>
+                            Авторизация</Button>
+
                     </Nav>
                 }
             </Container>
