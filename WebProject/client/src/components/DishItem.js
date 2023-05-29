@@ -17,6 +17,7 @@ const DishItem = ({ dish }) => {
                     <div>
                         {dish.cost}₽
                     </div>
+                    
                 </div>
             </Card>
         </Col>
