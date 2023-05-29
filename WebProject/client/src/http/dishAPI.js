@@ -16,10 +16,12 @@ export const createDish = async(dish) => {
 
 export const fetchDishes = async() => {
     const {data} = await $host.get('api/dish')
+    console.log(data)
     return data
 } 
 
 export const fetchOneDish = async(id) => {
     const {data} = await $host.get('api/dish/'+id)
+    console.log(data)
     return data
 }     

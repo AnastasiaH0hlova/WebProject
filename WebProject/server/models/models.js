@@ -44,7 +44,7 @@ const Type_Dish = sequelize.define('type_dish',{
 
 const Dish_Info = sequelize.define('dish_info',{
     id:{type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type:DataTypes.STRING, unique:true, allowNull:false},
+    name: {type:DataTypes.STRING, allowNull:false},
     quantity:{type:DataTypes.INTEGER, allowNull:false},
     unit:{type:DataTypes.STRING, allowNull:false}
 })

@@ -4,6 +4,7 @@ export default class DishStore {
     constructor() {
         this._types = []
         this._dishes = []
+        this._ing = []
         this._selectedType = {}
         makeAutoObservable(this)
     }
@@ -14,6 +15,9 @@ export default class DishStore {
     setDishes(dishes) {
         this._dishes = dishes
     }
+    setIng(ing) {
+        this._ing = ing
+    }    
     setSelectedType(type) {
         this._selectedType = type
     }
@@ -23,6 +27,9 @@ export default class DishStore {
     }
     get dishes() {
         return this._dishes
+    }
+    get ing() {
+        return this._ing
     }
     get selectedType() {
         return this._selectedType

@@ -62,15 +62,7 @@ class BasketController {
         const basket_dishes_ID = await Basket_Dish.findAll({where:{basketId}})
 
 
-        return res.json(basket_dishes_ID)
-    
-        
-        
-
-
-        
-        
-        
+        return res.json(basket_dishes_ID)        
     }
 
    /*  async getOne(req,res){
