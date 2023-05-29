@@ -10,7 +10,7 @@ const DishPage = () => {
     useEffect(() => {
         fetchOneDish(id).then(data=>setDish(data))
     }, [])
-
+    //{dish.dish_info[0].name} сделать фором перебор ингеридентов (проверка на существование массива!)
     return (
         < Container className='mt-4' >
             <Row>
@@ -32,6 +32,7 @@ const DishPage = () => {
                         style={{ width: 300, height: 300, fontSize: 32, border: '5px solid lightgrey' }}>
                         <h3>
                             {dish.cost}₽
+                            
                         </h3>
 
                         <Button variant='outline-dark' >
