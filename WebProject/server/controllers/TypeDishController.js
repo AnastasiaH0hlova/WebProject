@@ -14,14 +14,14 @@ class TypeDishController {
         return res.json(types)
     }
 
-    async getOne(req,res){
-        const {id} = req.params
-        const type = await Type_Dish.findOne({
-            where: {id},
-            include: [{model:Dish,as: 'dish'}]
-        })
-        return res.json(dish) 
-    }
+    // async getOne(req,res){
+    //     const {id} = req.params
+    //     const type = await Type_Dish.findOne({
+    //         where: {id},
+    //         include: [{model:Dish,as: 'dish'}]
+    //     })
+    //     return res.json(dish) 
+    // }
 
     
 }

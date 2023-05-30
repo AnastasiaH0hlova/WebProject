@@ -44,8 +44,15 @@ class DishController {
         let dishes;
         if (typeDishId) dishes = await Dish.findAndCountAll({where:{typeDishId}, limit, offset})        
         else dishes = await Dish.findAndCountAll({ limit, offset})
-        return res.json(dishes)
-        
+        return res.json(dishes)        
+    }
+
+    async getAllByType(req,res){
+        const {typeDishId} = req.params
+        const dish = await Dish.findAll({
+            where: {typeDishId}
+        })
+        return res.json(dish) 
     }
 
     async getOne(req,res){
@@ -64,6 +71,8 @@ class DishController {
         })
         return res.json(dish) 
     }
+
+
 
     
 }
