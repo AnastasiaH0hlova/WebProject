@@ -4,13 +4,13 @@ import { useParams } from 'react-router-dom';
 import { fetchOneDish } from '../http/dishAPI';
 
 const DishPage = () => {
-    const {id} = useParams();
+    const { id } = useParams();
     const [dish, setDish] = useState({ info: [] })
 
     useEffect(() => {
-        fetchOneDish(id).then(data=>setDish(data))
+        fetchOneDish(id).then(data => setDish(data))
     }, [])
-    console.log({dish})
+    console.log({ dish })
     //{dish.dish_info[0].name} сделать фором перебор ингеридентов (проверка на существование массива!)
     return (
         < Container className='mt-4' >
@@ -27,9 +27,10 @@ const DishPage = () => {
                         <p className='mt-2'>Вес: {dish.weight}г</p>
                         <p>Калории: {dish.calories}ккал</p>
                     </Card>
-                    <Card>
-                        Ингредиенты: 
-                        
+                    <Card border='light' className='mt-3'>
+                        Ингредиенты:
+                        {dish.dish_info?.map(dish_info => <div>{dish_info.name}</div>)}
+
                     </Card>
                 </Col>
                 <Col md={4}>
@@ -37,7 +38,7 @@ const DishPage = () => {
                         style={{ width: 300, height: 300, fontSize: 32, border: '5px solid lightgrey' }}>
                         <h3>
                             {dish.cost}₽
-                            
+
                         </h3>
 
                         <Button variant='outline-dark' >

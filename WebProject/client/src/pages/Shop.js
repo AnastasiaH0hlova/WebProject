@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import TypeBar from '../components/TypeBar';
 import ListDish from '../components/ListDish';
 import { observer } from 'mobx-react-lite';
@@ -12,10 +12,7 @@ const Shop = observer(() => {
 
     useEffect(() => {
         fetchType().then(data => dish.setTypes(data))
-        /*fetchDishes(null, 1, 5).then(data => {
-            dish.setDishes(data.rows)
-            dish.setTotalCount(data.count)
-        })*/
+        
     }, [])
 
     console.log(dish.selectedType.id, dish.totalCount)
@@ -27,10 +24,18 @@ const Shop = observer(() => {
         })
     }, [ dish.page, dish.selectedType])
 
+    const watchAllDishes= () => {
+        dish.setSelectedType(false)
+        
+    }
+
     return (
         <Container>
             <Row className='mt-2' >
                 <Col md={3}>
+                    <Button variant="outline-dark" className='ms-2' onClick={() => watchAllDishes()}>
+                        Все блюда
+                    </Button>
                     <TypeBar />
                 </Col>
                 <Col md={9}>

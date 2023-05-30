@@ -6,7 +6,7 @@ import { ListGroup } from 'react-bootstrap';
 const TypeBar = observer(() => {
     const { dish } = useContext(Context)
     return (
-        <ListGroup>
+        <ListGroup className='mt-2'>
             {dish.types.map(type =>
                 <ListGroup.Item 
                 className='bg-primary bg-gradient'

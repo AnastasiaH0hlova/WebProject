@@ -14,13 +14,23 @@ export const createDish = async(dish) => {
     return data
 }
 
-export const fetchDishes = async(typeId, page, limit = 5) => {
+export const fetchDishes = async(typeDishId, page, limit = 5) => {
     const {data} = await $host.get('api/dish', {params: {
-        typeId, page, limit
+        typeDishId, page, limit
     }})
     console.log(data)
     return data
 } 
+
+export const fetchDishesType = async(typeDishId) => {
+    const {data} = await $host.get('api/dish', {params: {
+        typeDishId
+
+    }})
+    console.log(data)
+    return data
+} 
+
 
 export const fetchOneDish = async(id) => {
     const {data} = await $host.get('api/dish/'+id)

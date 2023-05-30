@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import { Context } from '..';
 
 const Error = ({ show, onHide }) => {
-    
+    const {user} = useContext(Context)
+    console.log({user})
     //const [errorVisible, setErrorVisible] = useState(false)
     return (
         <Modal
