@@ -5,23 +5,25 @@ import { ERROR_ROUTE, SHOP_ROUTE } from '../utils/consts';
 import { Context } from '..';
 
 const AppRouter = () => {
-    const {user} = useContext(Context)
+    const { user } = useContext(Context)
     //console.log(user)
-    
+
     return (
-         <Routes>
-            if(user.isAuth) {authRoutes.map(({ path, Component }) =>
-                <Route key={path} path={path} element={<Component />} exact />
-            )         
-
+        <Routes>
+            {user.isAuth &&
+                authRoutes.map(({ path, Component }) =>
+                    <Route key={path} path={path} element={<Component />} exact />
+                )
             }
-            {publicRoutes.map(({ path, Component }) =>
-                <Route key={path}  path={path} element={<Component />} exact />
-            )
+            {!user.isAuth &&
+                publicRoutes.map(({ path, Component }) =>
+                    <Route key={path} path={path} element={<Component />}  />
+                )
             }
-            <Route path='*' element={<Navigate to={SHOP_ROUTE}/>} />
 
-        </Routes> 
+            <Route path='*' element={<Navigate to={SHOP_ROUTE} />} />
+
+        </Routes>
 
     );
 };

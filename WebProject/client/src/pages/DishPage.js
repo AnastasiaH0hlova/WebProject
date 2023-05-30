@@ -10,6 +10,7 @@ const DishPage = () => {
     useEffect(() => {
         fetchOneDish(id).then(data=>setDish(data))
     }, [])
+    console.log({dish})
     //{dish.dish_info[0].name} сделать фором перебор ингеридентов (проверка на существование массива!)
     return (
         < Container className='mt-4' >
@@ -25,6 +26,10 @@ const DishPage = () => {
                         <h4>{dish.description}</h4>
                         <p className='mt-2'>Вес: {dish.weight}г</p>
                         <p>Калории: {dish.calories}ккал</p>
+                    </Card>
+                    <Card>
+                        Ингредиенты: 
+                        
                     </Card>
                 </Col>
                 <Col md={4}>

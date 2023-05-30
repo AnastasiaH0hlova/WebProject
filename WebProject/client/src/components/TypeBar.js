@@ -9,7 +9,7 @@ const TypeBar = observer(() => {
         <ListGroup>
             {dish.types.map(type =>
                 <ListGroup.Item 
-                className='bg-secondary bg-gradient'
+                className='bg-primary bg-gradient'
                 style={{cursor: "pointer"}}
                 active={type.id === dish.selectedType.id}
                 onClick={()=>dish.setSelectedType(type)}

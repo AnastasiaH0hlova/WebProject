@@ -16,17 +16,19 @@ const NavBar = observer(() => {
     const logOut = () => {
         user.setUser({})
         user.setIsAuth(false)
-    }
+        console.log(user.isAuth)
+        navigate(SHOP_ROUTE)
+        }
 
     return (
         <Navbar bg="dark" variant="dark">
             <Container>
-                <NavLink style={{ color: "white" }} onClick={()=>navigate(SHOP_ROUTE)}>Al Halal</NavLink>
+                <NavLink style={{ color: "white" }} onClick={() => navigate(SHOP_ROUTE)}>Al Halal</NavLink>
                 {user.isAuth ?
                     <Nav className="ms-auto">
-                        <Button variant="outline-light" onClick={()=>navigate(ERROR_ROUTE)}>Ошибка</Button>
-                        <Button variant="outline-light" className='ms-2' onClick={()=>navigate(BASKET_ROUTE)}>Корзина</Button>
-                        <Button variant="outline-light" className='ms-2' onClick={()=>navigate(ADMIN_ROUTE)}>Админ панель</Button>
+                        <Button variant="outline-light" onClick={() => navigate(ERROR_ROUTE)}>Ошибка</Button>
+                        <Button variant="outline-light" className='ms-2' onClick={() => navigate(BASKET_ROUTE)}>Корзина</Button>
+                        <Button variant="outline-light" className='ms-2' onClick={() => navigate(ADMIN_ROUTE)}>Админ панель</Button>
                         <Button variant="outline-light" className='ms-2' onClick={() => logOut()}>Выйти</Button>
                     </Nav>
                     :
