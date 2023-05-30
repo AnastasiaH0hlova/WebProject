@@ -1,13 +1,27 @@
 import React, { useContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { authRoutes, publicRoutes } from '../routes';
-import { ERROR_ROUTE, SHOP_ROUTE } from '../utils/consts';
+import { BASKET_ROUTE, ERROR_ROUTE, SHOP_ROUTE } from '../utils/consts';
 import { Context } from '..';
+import Basket from '../pages/Basket';
+import Admin from '../pages/Admin';
+import Auth from '../pages/Auth';
+import ErrorPage from '../pages/ErrorPage';
+import Shop from '../pages/Shop';
+import DishPage from '../pages/DishPage';
 
 const AppRouter = () => {
     const { user } = useContext(Context)
     //console.log(user)
-
+    /* {user.isAuth === true &&
+         authRoutes.map(({ path, Component }) =>
+             <Route key={path} path={path} element={<Component />} exact />
+         )
+     }
+     {user.isAuth === false && publicRoutes.map(({ path, Component }) =>
+         <Route key={path} path={path} element={<Component />} />
+     )
+     }*/
     return (
         <Routes>
             {user.isAuth &&
@@ -15,16 +29,13 @@ const AppRouter = () => {
                     <Route key={path} path={path} element={<Component />} exact />
                 )
             }
-            {!user.isAuth &&
-                publicRoutes.map(({ path, Component }) =>
-                    <Route key={path} path={path} element={<Component />}  />
-                )
+            {publicRoutes.map(({ path, Component }) =>
+                <Route key={path} path={path} element={<Component />} exact />
+            )
             }
-
-            <Route path='*' element={<Navigate to={SHOP_ROUTE} />} />
+            < Route path='*' element={<Navigate to={SHOP_ROUTE} />} />
 
         </Routes>
-
     );
 };
 

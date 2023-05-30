@@ -9,7 +9,7 @@ const DishItem = ({ dish }) => {
     return (
         <Col md={3} className='mt-3' onClick={()=>navigate(`${DISH_ROUTE}/${dish.id}`)}>
             <Card style={{ width: 200, cursor: 'pointer' }} border={'light'}>
-                <Image width={200} height={200}  className="rounded" src={process.env.REACT_APP_API_URL + dish.img} />
+                <Image width={200} height={200}  className="rounded" src={process.env.REACT_APP_API_URL + dish.photo} />
                 <div className='d-flex justify-content-between align-items-center'>
                     <div>
                         {dish.name}

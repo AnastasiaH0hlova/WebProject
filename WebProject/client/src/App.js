@@ -15,8 +15,16 @@ const App = observer(() => {
     check().then(data => {
       user.setUser(data)
       user.setIsAuth(true)
-    }).finally(() => setLoading(false))
+    })
+    .catch((error) => user.setIsAuth(false))
+    .finally(() => setLoading(false))
   }, [])
+
+  useEffect(() => {
+    check().then(data => {
+      user.setUser(data)
+    }).finally(() => setLoading(false))
+  }, [user.isAuth])
 
   if (loading) {
     return <Spinner animation={"grow"} />
