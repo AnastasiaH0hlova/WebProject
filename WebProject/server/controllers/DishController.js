@@ -65,11 +65,22 @@ class DishController {
     }
 
     async deleteOne(req,res){
+        try{
         const {id} = req.params
-        const dish = await Dish.findOne({
+        await Dish_Info.destroy({
+            where: {dishId: id}
+        })
+        await Dish.destroy({
             where: {id}
         })
-        return res.json(dish) 
+
+        return res.json("Блюдо и связанные с ним ингредиенты успешно удалены") 
+
+    }catch(e)
+    {
+         alert('Взорвалось что-то и блюдо и его ингредиенты не удалились. Ошибка:'+ e.name+e.message);
+    }
+        
     }
 
 
