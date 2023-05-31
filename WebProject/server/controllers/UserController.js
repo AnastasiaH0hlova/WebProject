@@ -37,8 +37,15 @@ class UserController {
         return res.json({token})
     }
 
-    async check(req,res, next){
-        res.json({message:"ALL RIGHT"})
+    async check(req,res){
+        const token = req.headers.authorization.split(' ')[1]
+            if(!token) res.status(401).json({message:"Не авторизован"})
+        const email = jwt.verify(token,process.env.SECRET_KEY).email    
+
+        const userInfo = await User.findOne({where:{email}});
+        const userRole = userInfo.role
+
+        return res.json({userRole})
     }
 }
 
