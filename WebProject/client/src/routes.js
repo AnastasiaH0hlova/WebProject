@@ -4,7 +4,7 @@ import Basket from "./pages/Basket"
 import DishPage from "./pages/DishPage"
 import Shop from "./pages/Shop"
 import ErrorPage from "./pages/ErrorPage"
-import { ADMIN_ROUTE, BASKET_ROUTE, DISH_ROUTE, ERROR_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
+import { ADMIN_ROUTE, BASKET_ROUTE, DISH_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
 
 export const authRoutes = [
     {
@@ -24,7 +24,7 @@ export const publicRoutes = [
     },
     {
         path: ADMIN_ROUTE,
-        Component: ErrorPage
+        Component: Admin
     },
     {
         path: SHOP_ROUTE,
