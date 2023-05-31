@@ -24,7 +24,7 @@ export const publicRoutes = [
     },
     {
         path: ADMIN_ROUTE,
-        Component: Admin
+        Component: ErrorPage
     },
     {
         path: SHOP_ROUTE,

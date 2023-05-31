@@ -12,16 +12,7 @@ import DishPage from '../pages/DishPage';
 
 const AppRouter = () => {
     const { user } = useContext(Context)
-    //console.log(user)
-    /* {user.isAuth === true &&
-         authRoutes.map(({ path, Component }) =>
-             <Route key={path} path={path} element={<Component />} exact />
-         )
-     }
-     {user.isAuth === false && publicRoutes.map(({ path, Component }) =>
-         <Route key={path} path={path} element={<Component />} />
-     )
-     }*/
+
     return (
         <Routes>
             {user.isAuth &&

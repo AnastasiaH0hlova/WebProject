@@ -20,7 +20,6 @@ export const fetchDishes = async (typeDishId, page, limit = 5) => {
             typeDishId, page, limit
         }
     })
-    console.log(data)
     return data
 }
 
@@ -31,7 +30,6 @@ export const fetchDishesType = async (typeDishId) => {
 
         }
     })
-    console.log(data)
     return data
 }
 
@@ -43,7 +41,7 @@ export const fetchOneDish = async (id) => {
 }
 
 export const deleteOneDish = async (id) => {
-    const { data } = await $host.delete('api/dish/' + id)
+    const { data } = await $authHost.delete('api/dish/' + id)
     //console.log(data)
     return data
 }

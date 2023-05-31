@@ -15,7 +15,7 @@ const Shop = observer(() => {
         
     }, [])
 
-    console.log(dish.selectedType.id, dish.totalCount)
+    //console.log(dish.selectedType.id, dish.totalCount)
 
     useEffect(() => {
         fetchDishes(dish.selectedType.id, dish.page, 3).then(data => {

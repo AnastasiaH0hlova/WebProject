@@ -3,7 +3,7 @@ const router = new Router()
 const DishController = require('../controllers/DishController')
 const checkRole = require('../middleware/checkRoleMiddleware')
 
-router.post('/',  checkRole('ADMIN'), DishController.create)
+router.post('/', DishController.create)
 router.get('/', DishController.getAll)
 router.get('/:id',  DishController.getOne)
 router.get('/',  DishController.getAllByType)

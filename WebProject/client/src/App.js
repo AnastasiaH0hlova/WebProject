@@ -12,19 +12,19 @@ const App = observer(() => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    check().then(data => {
-      user.setUser(data)
+    check(user.user).then(data => {
       user.setIsAuth(true)
+      user.setRole(data)
     })
     .catch((error) => user.setIsAuth(false))
     .finally(() => setLoading(false))
   }, [])
 
   useEffect(() => {
-    check().then(data => {
-      user.setUser(data)
+    check(user.user).then(data => {
+      user.setRole(data)
     }).finally(() => setLoading(false))
-  }, [user.isAuth])
+  }, [user.isAuth, user.role])
 
   if (loading) {
     return <Spinner animation={"grow"} />
