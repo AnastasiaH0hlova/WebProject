@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Button, Dropdown, Form, Modal } from 'react-bootstrap';
 import { Context } from '../..';
 import { observer } from 'mobx-react-lite';
-import { createDish, fetchDishes, fetchType } from '../../http/dishAPI';
+import { createDish, fetchDishes, fetchOneDish, fetchType } from '../../http/dishAPI';
 
 const CreateDish = observer(({ show, onHide }) => {
     const { dish } = useContext(Context)
@@ -15,23 +15,18 @@ const CreateDish = observer(({ show, onHide }) => {
     const [file, setFile] = useState(null)
     const [info, setInfo] = useState([])
 
-    useEffect(()=>{
-        fetchType().then(data=>dish.setTypes(data))
-        fetchDishes().then(data=>dish.setDishes(data.rows))
+    
+    useEffect(() => {
+        fetchType().then(data => dish.setTypes(data))
+        fetchDishes().then(data => dish.setDishes(data.rows))
     }, [])
-
+ console.log(dish.dish_info)
     const selectFile = e => {
         setFile(e.target.files[0])
     }
 
-    const addInfo = () => {
-        setInfo([...info, {title: '', description: '', number: Date.now()}])
-    }
-    const removeInfo = (number) => {
-        setInfo(info.filter(i => i.number !== number))
-    }
 
-    const addDish =()=>{
+    const addDish = () => {
         const formData = new FormData()
         formData.append('name', name)
         formData.append('description', description)
@@ -58,10 +53,10 @@ const CreateDish = observer(({ show, onHide }) => {
             <Modal.Body>
                 <Form>
                     <Dropdown>
-                        <Dropdown.Toggle>{ dish.selectedType.name ||"Выберите тип блюда"}</Dropdown.Toggle>
+                        <Dropdown.Toggle>{dish.selectedType.name || "Выберите тип блюда"}</Dropdown.Toggle>
                         <Dropdown.Menu>
                             {dish.types.map(type =>
-                                <Dropdown.Item onClick={()=>dish.setSelectedType(type)} key={type.id}>{type.name}</Dropdown.Item>
+                                <Dropdown.Item onClick={() => dish.setSelectedType(type)} key={type.id}>{type.name}</Dropdown.Item>
                             )}
                         </Dropdown.Menu>
                     </Dropdown>
@@ -82,7 +77,7 @@ const CreateDish = observer(({ show, onHide }) => {
                         onChange={e => setWeight(Number(e.target.value))}
                         className='mt-3'
                         placeholder='Введите вес блюда'
-                        type='number'
+
                     />
                     <Form.Control
                         value={ccal}
@@ -103,6 +98,16 @@ const CreateDish = observer(({ show, onHide }) => {
                         type='file'
                         onChange={selectFile}
                     />
+
+                    <Form.Control as="select" multiple value={dish.ing}>
+                        {dish.ing?.map(ing => 
+                            <option key={ing.id} value={ing.name}>
+                                {ing.name}
+                            </option>
+                        )}
+                        {dish.dish_info?.map(dish_info => <div key={Math.random() + '' + Math.random()}>{dish_info.name}</div>)}
+
+                    </Form.Control>
                     <hr />
                 </Form>
             </Modal.Body>

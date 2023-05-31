@@ -16,9 +16,13 @@ const NavBar = observer(() => {
     const logOut = () => {
         user.setUser({})
         user.setIsAuth(false)
-        console.log(user.isAuth)
+        user.setRole("")
+        localStorage.clear()    
+        console.log({user})
         navigate(SHOP_ROUTE)
-        }
+    }
+
+    //console.log(user.role)
 
     return (
         <Navbar bg="dark" variant="dark">
@@ -27,7 +31,7 @@ const NavBar = observer(() => {
                 {user.isAuth ?
                     <Nav className="ms-auto">
                         <Button variant="outline-light" className='ms-2' onClick={() => navigate(BASKET_ROUTE)}>Корзина</Button>
-                        <Button variant="outline-light" className='ms-2' onClick={() => navigate(ADMIN_ROUTE)}>Админ панель</Button>
+                        {user.role && user.role === 'ADMIN' && (<Button variant="outline-light" className='ms-2' onClick={() => navigate(ADMIN_ROUTE)}>Админ панель</Button>)}
                         <Button variant="outline-light" className='ms-2' onClick={() => logOut()}>Выйти</Button>
                     </Nav>
                     :
