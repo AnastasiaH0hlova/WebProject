@@ -22,7 +22,7 @@ class BasketDishController {
             if(!token) res.status(401).json({message:"Не авторизован"})
             const email = jwt.verify(token,process.env.SECRET_KEY).email
             
-            const userID = await User.findOne({where:{email}},{ transaction: t });
+            const userID = await User.findOne({where:{email}}); //{ transaction: t }
             const userId = userID.id        
 
             const basket_dish = await Basket_Dish.create({count, userId, dishId}); //{ transaction: t }
