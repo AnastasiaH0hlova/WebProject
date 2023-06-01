@@ -10,13 +10,13 @@ const sequelize = require('../db')
 class BasketDishController {
     async create(req,res, next){
        
-       
+       try{
 
-            const {name,count} = req.body
-            const dish = await Dish.findOne({
-            where: {name}
-            }); //,{ transaction: t }
-            const dishId = dish.id
+            const {dishId,count} = req.body
+            // const dish = await Dish.findOne({
+            // where: {name}
+            // }); //,{ transaction: t }
+            // const dishId = dish.id
 
             const token = req.headers.authorization.split(' ')[1]
             if(!token) res.status(401).json({message:"Не авторизован"})
@@ -38,6 +38,7 @@ class BasketDishController {
             next(ApiError.badRequest(e.message))
             // await t.rollback();
         }
+    }
 
         
     
@@ -92,7 +93,7 @@ class BasketDishController {
  */
 
     
-}
+    }
 
 
 
