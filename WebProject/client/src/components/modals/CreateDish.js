@@ -74,24 +74,22 @@ const CreateDish = observer(({ show, onHide }) => {
                     />
                     <Form.Control
                         value={weight}
-                        onChange={e => setWeight(Number(e.target.value))}
+                        onChange={e => setWeight((e.target.value))}
                         className='mt-3'
                         placeholder='Введите вес блюда'
 
                     />
                     <Form.Control
                         value={ccal}
-                        onChange={e => setCcal(Number(e.target.value))}
+                        onChange={e => setCcal(e.target.value)}
                         className='mt-3'
                         placeholder='Введите калорийность блюда'
-                        type='number'
                     />
                     <Form.Control
                         value={cost}
-                        onChange={e => setCost(Number(e.target.value))}
+                        onChange={e => setCost(e.target.value)}
                         className='mt-3'
                         placeholder='Введите цену блюда'
-                        type='number'
                     />
                     <Form.Control
                         className='mt-3'
