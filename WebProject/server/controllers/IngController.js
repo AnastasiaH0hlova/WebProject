@@ -31,4 +31,4 @@ class IngController {
     
 }
 
-module.exports = new TypeDishController()
+module.exports = new IngController()

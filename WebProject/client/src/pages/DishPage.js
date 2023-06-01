@@ -1,16 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap';
-import { useInRouterContext, useNavigate, useParams } from 'react-router-dom';
+import { Button, Card, Col, Container, Form, Image, Row } from 'react-bootstrap';
+import { useNavigate, useParams } from 'react-router-dom';
 import { deleteOneDish, fetchOneDish } from '../http/dishAPI';
 import { SHOP_ROUTE } from '../utils/consts';
 import { Context } from '..';
+import { addToBasket } from '../http/basketAPI';
 
 const DishPage = () => {
     const { id } = useParams();
 
-    const {user} = useContext(Context)
+    const { user } = useContext(Context)
 
     const [dish1, setDish] = useState({ info: [] })
+    const [value, setValue] = useState('')
     const navigate = useNavigate()
     const { dish } = useContext(Context)
 
@@ -25,6 +27,15 @@ const DishPage = () => {
         } catch (e) {
             alert(e.response.data.message)
         }
+    }
+
+    const clickToBasket = () => {
+        addToBasket( {name:dish1.name, count: value} )
+        .then((data) => {
+            setValue('')
+            alert('good')
+        })
+        .catch(alert('bad'))
     }
     //{dish.dish_info[0].name} сделать фором перебор ингеридентов (проверка на существование массива!)
     return (
@@ -55,8 +66,16 @@ const DishPage = () => {
                             {dish1.cost}₽
 
                         </h3>
+                        <Form>
+                            <Form.Control
+                                value={value}
+                                onChange={e => setValue(e.target.value)}
+                                className='mt-3'
+                                placeholder='Введите количество блюд'
+                            />
+                        </Form>
 
-                        <Button variant='outline-dark' >
+                        <Button variant='outline-dark'onClick={() => clickToBasket()} >
                             Добавить в корзину
                         </Button>
                     </Card>
@@ -64,7 +83,7 @@ const DishPage = () => {
             </Row>
             <Row>
                 <Col className='md-4 mt-4' border='danger'>
-                    {user.role && user.role === 'ADMIN' && (<Button classname = 'bg-danger bg-gradient' onClick={() => clickDelete()}>Удалить блюдо</Button>)}
+                    {user.role && user.role === 'ADMIN' && (<Button classname='bg-danger bg-gradient' onClick={() => clickDelete()}>Удалить блюдо</Button>)}
                 </Col>
             </Row>
         </Container >
