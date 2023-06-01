@@ -20,12 +20,12 @@ const CreateDish = observer(({ show, onHide }) => {
         fetchType().then(data => dish.setTypes(data))
         fetchDishes().then(data => dish.setDishes(data.rows))
     }, [])
- console.log(dish.dish_info)
+
     const selectFile = e => {
         setFile(e.target.files[0])
     }
 
-
+console.log(dish.dishes.ing)
     const addDish = () => {
         const formData = new FormData()
         formData.append('name', name)
@@ -34,7 +34,7 @@ const CreateDish = observer(({ show, onHide }) => {
         formData.append('calories', `${ccal}`)
         formData.append('cost', `${cost}`)
         formData.append('photo', file)
-        formData.append('typeId', dish.selectedType.id)
+        formData.append('typeDishId', dish.selectedType.id)
         formData.append('info', JSON.stringify(info))
         createDish(formData).then(data => onHide())
     }
@@ -98,12 +98,11 @@ const CreateDish = observer(({ show, onHide }) => {
                     />
 
                     <Form.Control as="select" multiple value={dish.ing}>
-                        {dish.ing?.map(ing => 
-                            <option key={ing.id} value={ing.name}>
-                                {ing.name}
+                        {dish.dish_info?.map(dish_info => 
+                            <option key={dish_info.id} value={dish_info.name}>
+                                {dish_info.name}
                             </option>
                         )}
-                        {dish.dish_info?.map(dish_info => <div key={Math.random() + '' + Math.random()}>{dish_info.name}</div>)}
 
                     </Form.Control>
                     <hr />
