@@ -1,13 +1,13 @@
 const uuid = require('uuid')
 const path = require('path')
-const {User, Basket, Basket_Dish, Dish} = require('../models/models')
+const {User, Basket_Dish, Dish} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const jwt = require('jsonwebtoken')
 const sequelize = require('../db')
 //const TransactionDatabase = require("sqlite3-transactions");
 
 
-class BasketController {
+class BasketDishController {
     async create(req,res, next){
        
         const t = await sequelize.transaction();
@@ -24,12 +24,9 @@ class BasketController {
             const email = jwt.verify(token,process.env.SECRET_KEY).email
             
             const userID = await User.findOne({where:{email}},{ transaction: t });
-            const userId = userID.id            
+            const userId = userID.id        
 
-            const basketID = await Basket.findOne({where:{userId}},{ transaction: t });
-            const basketId = basketID.id
-
-            const basket_dish = await Basket_Dish.create({count, basketId, dishId},{ transaction: t });
+            const basket_dish = await Basket_Dish.create({count, userId, dishId},{ transaction: t });
             await t.commit();
             return res.json(basket_dish)
 
@@ -56,15 +53,34 @@ class BasketController {
         const userID = await User.findOne({where:{email}})
         const userId = userID.id    
         
-        const basketID = await Basket.findOne({where:{userId}})
-        const basketId = basketID.id  
-        
-        const basket_dishes_ID = await Basket_Dish.findAll({where:{basketId}})
+        const basket_dishes_ID = await Basket_Dish.findAll({where:{userId}})
 
 
         return res.json(basket_dishes_ID)        
     }
 
+    async deleteOne(req,res){
+
+        const token = req.headers.authorization.split(' ')[1]
+        if(!token) res.status(401).json({message:"Не авторизован"})
+        const email = jwt.verify(token,process.env.SECRET_KEY).email
+            
+
+        const userID = await User.findOne({where:{email}})
+        const userId = userID.id   
+
+        const {id} = req.params
+
+        await Basket_Dish.destroy({
+            where: {
+                dishId: id,
+                userId: userId
+            }
+        })
+
+        
+
+    }
    /*  async getOne(req,res){
         const {id} = req.params
         const dish = await Dish.findOne({
@@ -79,4 +95,6 @@ class BasketController {
     
 }
 
-module.exports = new BasketController()
+
+
+module.exports = new BasketDishController()

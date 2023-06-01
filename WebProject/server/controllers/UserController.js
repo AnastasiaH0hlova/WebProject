@@ -49,7 +49,7 @@ class UserController {
 
         return res.json({userRole})
         }catch(err){
-            return res.json({"Жопа"})
+            return res.json("Жопа")
         }
     }
 }

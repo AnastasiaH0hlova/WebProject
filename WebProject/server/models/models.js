@@ -11,9 +11,9 @@ const User = sequelize.define('user', {
     role: {type:DataTypes.STRING, defaul: "USER"}
 })
 
-const Basket = sequelize.define('basket',{
-    id:{type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
-})
+// const Basket = sequelize.define('basket',{
+//     id:{type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
+// })
 
 const Basket_Dish = sequelize.define('basket_dish',{
     id:{type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -22,8 +22,10 @@ const Basket_Dish = sequelize.define('basket_dish',{
 
 const Order = sequelize.define('order',{
     id:{type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    order_id:{type:DataTypes.INTEGER, allowNull:false},
+    dish_id:{type:DataTypes.INTEGER, allowNull:false},
     status:{type:DataTypes.STRING},
-    address:{type:DataTypes.STRING},
+    address:{type:DataTypes.STRING, allowNull:false},
     date:{type:DataTypes.DATE}
 })
 
@@ -49,8 +51,8 @@ const Dish_Info = sequelize.define('dish_info',{
     unit:{type:DataTypes.STRING, allowNull:false}
 })
 
-User.hasOne(Basket)
-Basket.belongsTo(User)
+User.hasMany(Basket_Dish)
+Basket_Dish.belongsTo(User)
 
 User.hasMany(Order)
 Order.belongsTo(User)
@@ -58,21 +60,15 @@ Order.belongsTo(User)
 Dish.hasMany(Dish_Info, {as: 'dish_info'})
 Dish_Info.belongsTo(Dish)
 
-Basket.hasMany(Basket_Dish)
-Basket_Dish.belongsTo(Basket)
-
 Type_Dish.hasMany(Dish)
 Dish.belongsTo(Type_Dish)
 
 Dish.hasMany(Basket_Dish)
 Basket_Dish.belongsTo(Dish)
 
-Basket.hasMany(Order)
-Order.belongsTo(Basket) 
 
 module.exports = {
     User,
-    Basket,
     Basket_Dish,
     Dish,
     Dish_Info,
