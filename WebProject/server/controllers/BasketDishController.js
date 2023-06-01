@@ -12,7 +12,7 @@ class BasketDishController {
        
        try{
 
-            const {dishId,count} = req.body
+            let {dishId,count} = req.body
             // const dish = await Dish.findOne({
             // where: {name}
             // }); //,{ transaction: t }
