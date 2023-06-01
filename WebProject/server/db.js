@@ -6,7 +6,7 @@ module.exports = new Sequelize(
     process.env.DB_PASSWORD,
     {
         dialect:'sqlite',
-        storage: 'C:\Sqlite3\online_delivery.sqlite',
+        storage: 'Sqlite3\online_delivery.sqlite',
         host: process.env.DB_HOST,
         port:process.env.DB_PORT,
     }
