@@ -59,6 +59,28 @@ class BasketDishController {
         return res.json(basket_dishes_ID)        
     }
 
+    async deleteOne(req,res){
+
+        const token = req.headers.authorization.split(' ')[1]
+        if(!token) res.status(401).json({message:"Не авторизован"})
+        const email = jwt.verify(token,process.env.SECRET_KEY).email
+            
+
+        const userID = await User.findOne({where:{email}})
+        const userId = userID.id   
+
+        const {id} = req.params
+
+        await Basket_Dish.destroy({
+            where: {
+                dishId: id,
+                userId: userId
+            }
+        })
+
+        
+
+    }
    /*  async getOne(req,res){
         const {id} = req.params
         const dish = await Dish.findOne({
@@ -72,5 +94,7 @@ class BasketDishController {
 
     
 }
+
+
 
 module.exports = new BasketDishController()
