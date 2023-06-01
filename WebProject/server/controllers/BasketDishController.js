@@ -10,13 +10,12 @@ const sequelize = require('../db')
 class BasketDishController {
     async create(req,res, next){
        
-        const t = await sequelize.transaction();
-        try {
+       
 
             const {name,count} = req.body
             const dish = await Dish.findOne({
             where: {name}
-            },{ transaction: t });
+            }); //,{ transaction: t }
             const dishId = dish.id
 
             const token = req.headers.authorization.split(' ')[1]
@@ -26,8 +25,8 @@ class BasketDishController {
             const userID = await User.findOne({where:{email}},{ transaction: t });
             const userId = userID.id        
 
-            const basket_dish = await Basket_Dish.create({count, userId, dishId},{ transaction: t });
-            await t.commit();
+            const basket_dish = await Basket_Dish.create({count, userId, dishId}); //{ transaction: t }
+            // await t.commit();
             return res.json(basket_dish)
 
 
@@ -37,11 +36,11 @@ class BasketDishController {
         {
             
             next(ApiError.badRequest(e.message))
-            await t.rollback();
+            // await t.rollback();
         }
 
         
-    }
+    
 
     async getAll(req,res){
 
