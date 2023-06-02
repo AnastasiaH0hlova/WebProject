@@ -10,11 +10,11 @@ const DishPage = () => {
     const { id } = useParams();
 
     const { user } = useContext(Context)
+    const {basket} = useContext(Context)
 
     const [dish1, setDish] = useState({ info: [] })
     const [value, setValue] = useState('')
     const navigate = useNavigate()
-    const { dish } = useContext(Context)
 
     useEffect(() => {
         fetchOneDish(id).then(data => setDish(data))
@@ -30,14 +30,14 @@ const DishPage = () => {
     }
 
     const clickToBasket = () => {
-        addToBasket( {name:dish1.name, count: value} )
+        addToBasket(  {dishId: id, count: value} )
         .then((data) => {
+            basket.setBasketDish(data)
             setValue('')
-            alert('good')
         })
-        .catch(alert('bad'))
+        .catch(error => alert(error.message))
     }
-    //{dish.dish_info[0].name} сделать фором перебор ингеридентов (проверка на существование массива!)
+    
     return (
         < Container className='mt-4' >
             <Row>

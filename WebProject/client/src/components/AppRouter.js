@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { authRoutes, publicRoutes } from '../routes';
+import { authAdminRoutes, authRoutes, authUserRoutes, publicRoutes } from '../routes';
 import { BASKET_ROUTE, ERROR_ROUTE, SHOP_ROUTE } from '../utils/consts';
 import { Context } from '..';
 import Basket from '../pages/Basket';
@@ -15,8 +15,13 @@ const AppRouter = () => {
 
     return (
         <Routes>
-            {user.isAuth &&
-                authRoutes.map(({ path, Component }) =>
+            {user.isAuth && user.role && user.role === 'ADMIN'  &&
+                authAdminRoutes.map(({ path, Component }) =>
+                    <Route key={path} path={path} element={<Component />} exact />
+                )
+            }
+            {user.isAuth  &&
+                authUserRoutes.map(({ path, Component }) =>
                     <Route key={path} path={path} element={<Component />} exact />
                 )
             }

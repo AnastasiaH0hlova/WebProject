@@ -12,13 +12,14 @@ import { useNavigate } from 'react-router-dom';
 
 const NavBar = observer(() => {
     const { user } = useContext(Context)
+    const { basket } = useContext(Context)
     const navigate = useNavigate()
     const logOut = () => {
         user.setUser({})
         user.setIsAuth(false)
         user.setRole("")
-        localStorage.clear()    
-        console.log({user})
+        basket.setBasket([])
+        localStorage.clear()
         navigate(SHOP_ROUTE)
     }
 

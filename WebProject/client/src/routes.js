@@ -6,10 +6,21 @@ import Shop from "./pages/Shop"
 import ErrorPage from "./pages/ErrorPage"
 import { ADMIN_ROUTE, BASKET_ROUTE, DISH_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
 
-export const authRoutes = [
+export const authAdminRoutes = [
     {
         path: ADMIN_ROUTE,
         Component: Admin
+    },
+    {
+        path: BASKET_ROUTE,
+        Component: Basket
+    }
+]
+
+export const authUserRoutes = [
+    {
+        path: ADMIN_ROUTE,
+        Component: ErrorPage
     },
     {
         path: BASKET_ROUTE,

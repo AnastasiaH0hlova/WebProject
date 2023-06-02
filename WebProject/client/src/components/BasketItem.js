@@ -1,31 +1,45 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Form, Image, Row } from 'react-bootstrap';
+import { deleteOneBasket } from '../http/basketAPI';
+import { useNavigate, useParams } from 'react-router-dom';
+import { fetchOneDish } from '../http/dishAPI';
+import { SHOP_ROUTE } from '../utils/consts';
 
-const BasketItem = () => {
-    const dish = { id: 4, name: "Беляш", description: "Вкусный", weight: 900, calories: 98, cost: 1000, img: "http://chudo-prirody.com/uploads/posts/2021-08/1628905027_100-p-skachat-foto-milikh-kotikov-107.jpg" }
+const BasketItem = ({ basket }) => {
+    const [dish, setDish] = useState({ info: [] })
+    const navigate = useNavigate()
+    useEffect(() => {
+        fetchOneDish(basket.dishId).then(data => setDish(data))
+    }, [])
+    const id = basket.dishId
+    console.log(id)
+    const clickDelete = () => {
+        try {
+            deleteOneBasket( basket.dishId)
+            .then(navigate(SHOP_ROUTE))
+            .catch((error) => alert(error.message))
+        } catch (e) {
+            alert(e.response.data.message)
+        }
+    }
 
     return (
         <Card className='bg-light bg-gradient mt-2'>
             <Row className='d-flex justify-content-between align-items-center'>
+                <Col md={1}></Col>
                 <Col md={1} >
-                    <Image width={100} height={100} className="rounded" src={dish.img} />
+                    <Image width={100} height={100} className="rounded" src={process.env.REACT_APP_API_URL + dish.photo} />
                 </Col>
                 <Col md={3}>
                     <h2>
                         {dish.name}
                     </h2>
                     <h3>
-                        Стоимость: {dish.cost}₽
+                        Стоимость: {dish.cost * basket.count}₽
                     </h3>
                 </Col>
                 <Col md={3}>
-                    <Form.Control
-                        placeholder='Введите количество блюд'
-                        type='number'
-                    />
-                </Col>
-                <Col md={3}>
-                    <Button variant="outline-danger" >Удалить из корзины</Button>
+                    <Button variant="outline-danger" onClick={() => clickDelete()}>Удалить из корзины</Button>
                 </Col>
             </Row>
         </Card>

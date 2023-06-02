@@ -2,16 +2,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Button, Dropdown, Form, Modal } from 'react-bootstrap';
 import { Context } from '../..';
 import { observer } from 'mobx-react-lite';
-import { createDish, fetchDishes, fetchOneDish, fetchType } from '../../http/dishAPI';
+import { createDish, fetchDishes, fetchIng, fetchOneDish, fetchType } from '../../http/dishAPI';
 
 const CreateDish = observer(({ show, onHide }) => {
     const { dish } = useContext(Context)
     const [type, setType] = useState('')
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
-    const [weight, setWeight] = useState(0)
-    const [ccal, setCcal] = useState(0)
-    const [cost, setCost] = useState(0)
+    const [weight, setWeight] = useState()
+    const [ccal, setCcal] = useState()
+    const [cost, setCost] = useState()
     const [file, setFile] = useState(null)
     const [info, setInfo] = useState([])
 
@@ -25,7 +25,6 @@ const CreateDish = observer(({ show, onHide }) => {
         setFile(e.target.files[0])
     }
 
-console.log(dish.dishes.ing)
     const addDish = () => {
         const formData = new FormData()
         formData.append('name', name)
@@ -97,14 +96,6 @@ console.log(dish.dishes.ing)
                         onChange={selectFile}
                     />
 
-                    <Form.Control as="select" multiple value={dish.ing}>
-                        {dish.dish_info?.map(dish_info => 
-                            <option key={dish_info.id} value={dish_info.name}>
-                                {dish_info.name}
-                            </option>
-                        )}
-
-                    </Form.Control>
                     <hr />
                 </Form>
             </Modal.Body>

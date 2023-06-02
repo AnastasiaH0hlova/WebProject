@@ -6,22 +6,30 @@ import { fetchBasketDishes } from '../http/basketAPI';
 
 const Basket = () => {
     const { basket } = useContext(Context)
-
     useEffect(() => {
-        fetchBasketDishes().then(data => basket.setBasket(data))
+        fetchBasketDishes()
+        .then(data => basket.setBasket(data))
+        .catch(error => alert(error.message))
         
     }, [])
-
-
+    
+    useEffect(() => {
+        fetchBasketDishes()
+        .then(data => basket.setBasket(data))
+        .catch(error => alert(error.message))
+        
+    }, [basket.basketDish])
+    
+//<BasketItem key={basket.id} basket={basket} />
     return (
         <Container className='mt-2'>
-           
             <h1>
                 Корзина
             </h1>
-            <BasketItem />
-            <BasketItem />
-            <BasketItem />
+            {basket.basket?.map(baskets =>
+                <BasketItem key={baskets.id} basket={baskets} />
+            )
+            }
         </Container>
     )
 }

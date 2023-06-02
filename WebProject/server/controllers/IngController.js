@@ -19,6 +19,17 @@ class IngController {
         return res.json(ings)
     }
 
+
+    /*<Form.Control as="select" multiple value={dish.ing}>
+                        {dish.ing?.map(ing => 
+                            <option key={ing.id} value={ing.name}>
+                                {ing.name}
+                            </option>
+                        )}
+
+                    </Form.Control>*/
+
+
     // async getOne(req,res){
     //     const {id} = req.params
     //     const type = await Type_Dish.findOne({

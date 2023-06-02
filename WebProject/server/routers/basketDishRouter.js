@@ -4,7 +4,7 @@ const BasketDishController = require('../controllers/BasketDishController')
 
 router.post('/', BasketDishController.create)
 router.get('/', BasketDishController.getAll)
-router.delete('/', BasketDishController.deleteOne)
+router.delete('/:id', BasketDishController.deleteOne)
 
 
 module.exports = router

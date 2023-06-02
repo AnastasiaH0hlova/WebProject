@@ -9,6 +9,7 @@ export const fetchType = async () => {
     const { data } = await $host.get('api/type_dish')
     return data
 }
+
 export const createDish = async (dish) => {
     const { data } = await $authHost.post('api/dish', dish)
     return data
